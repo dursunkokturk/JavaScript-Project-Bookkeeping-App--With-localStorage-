@@ -1,0 +1,28 @@
+Ön Muhasebe (localstorage kullanılacak)
+
+    Listelemeleri console'la veya alert ile yapabilirsiniz. Seçimler için prompt, uyarıları için alert kullanın. 
+    Kullanıcıyı karşılamayı ve anlamlı mesajlar göstermeyi unutmayın. Son kullanıcıya hazırlanan bir uygulama gibi düşünün.
+    Versiyonlar uygulamanıza ekleyebileceğiniz özellikleri ifade ediyor. Sıra sıra versiyonları bitirin, önce sonuncuyu yapmaya çalışmayın.
+
+
+Versiyon 1:Kullanıcı sisteme gelirlerini ve giderlerini girebilsin. 3 menü sunalım gelir ekle, gider ekle ve bilanço göster olsun ve gelirlerini, giderlerini toplam olarak yazdıralım. Localstorage ile saklayalım. Yeniden açıldığında kaybetmemiş olalım.
+
+
+Versiyon 2:Gelir ve gider eklerken detay da eklensin. örneğin hizmet faturası ve fatura bedeli eklensin. Listelemede detayları verelim
+en alta da büyük harfler ile toplamları yazalım.
+
+
+Versiyon 3:Kullanıcı uygulamayı ilk açtığında şifre girsin :) şifresi doğru ise işlem yapabilsin. şifreyi uygulama içine statik yazabilirsiniz.
+
+
+Versiyon 4:Gelir eklerken tutar girince otomatik olarak + %20 kdv eklensin. Gider eklerken tutar ve kdv oranını elle girelim.
+Bilanço gösterilirken kdv dahil toplamları görelim. tablo gibi satır satır yazdırabilirsiniz. Toplam'ları da gösterin.
+
+
+Versiyon 5:Bilanço içine ödenecek vergi hesaplaması da ekleyin. Vergi hesaplaması şöyle oluyor. (Gelir - Gider) * 0,2
+Bu hesaplama içinde kdv'lerin olmaması gerekiyor.
+
+
+Versiyon 6:Bilanço içine ödenecek kdv hesaplamasını da ekleyin. Formül (Gelirlerin kdvleri toplamı - giderlerin kdv toplamı) 
+
+NOT: Versiyonlu ödevlerin amacı tamamlanan bir önceki versiyonu koruyup (kopyasını alarak) yeni versiyonda üstüne ekleyip geliştirmek. Tamamlanan versiyonun kopyası alınmazsa bir aradan sonra işler karışabilir :)
