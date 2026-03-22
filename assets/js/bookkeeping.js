@@ -40,4 +40,38 @@ for (let i = 0; i < transactions.length; i++) {
   }
 }
 
-// addIncome();
+
+// ========================= Gider Ekleme Fonksiyonu =========================
+function addExpense() {
+  let category = prompt("Gider Kategorisi Giriniz (Kira, Fatura vs):");
+  let amount = Number(prompt("Gider Miktarını Giriniz:"));
+  let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
+  let description = prompt("Açıklama Giriniz:");
+
+  // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
+  // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
+  // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
+  let newExpense = {
+    id: Date.now(),
+    type: "gider",
+    category: category,
+    amount: amount,
+    date: date,
+    description: description
+  };
+
+  // Kullacidan Alinan Data'lari 
+  // Atandigi Degisken Uzerinden Array'e Gonderiyoruz
+  transactions.push(newExpense);
+
+  // Array Icindeki Data'lari String Tipine Cevirip JSON Dosyasi Yapiyoruz
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+
+  alert("Gider Başarıyla Eklendi!");
+}
+
+for (let i = 0; i < transactions.length; i++) {
+  if (transactions[i].type === "gider") {
+    console.log(transactions[i]);
+  }
+}
