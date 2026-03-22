@@ -69,14 +69,6 @@ function addIncome() {
   alert("Gelir başarıyla eklendi!");
 }
 
-// transactions Array Icindeki Gelirleri Console Ekraninda Yazdiriyoruz
-for (let i = 0; i < transactions.length; i++) {
-  if (transactions[i].type === "gelir") {
-    console.log(transactions[i]);
-  }
-}
-
-
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
   let category = prompt("Gider Kategorisi Giriniz (Kira, Fatura vs):");
@@ -108,28 +100,42 @@ function addExpense() {
   alert("Gider Başarıyla Eklendi!");
 }
 
-for (let i = 0; i < transactions.length; i++) {
-  if (transactions[i].type === "gider") {
-    console.log(transactions[i]);
-  }
-}
-
 // ========================= Bilanco Hesaplama Fonksiyonu =========================
 function showBalance() {
   let totalIncome = 0;
   let totalExpense = 0;
 
+  let output = "===== GELİR & GİDER LİSTESİ =====\n\n";
+
   for (let i = 0; i < transactions.length; i++) {
-    if (transactions[i].type === "gelir") {
-      totalIncome += transactions[i].amount;
-    } else if (transactions[i].type === "gider") {
-      totalExpense += transactions[i].amount;
+    let transaction = transactions[i];
+    if (transaction.type === "gelir") {
+      totalIncome += transaction.amount;
+      output += `
+        Gelir Detayları : 
+        Gelir Kategorisi : ${transactions[i].category}
+        Gelir Miktarı : ${transactions[i].amount}
+        Gelir Tarihi : ${transactions[i].date}
+        Gelir Açıklaması : ${transactions[i].description}
+        Gelir Detayları : ${transactions[i].descriptionDetail}
+      `;
+    } else if (transaction.type === "gider") {
+      totalExpense += transaction.amount;
+      output += `
+        Gider Detayları : 
+        Gider Kategorisi : ${transactions[i].category}
+        Gider Miktarı : ${transactions[i].amount}
+        Gider Tarihi : ${transactions[i].date}
+        Gider Açıklaması : ${transactions[i].description}
+        Gider Detayları : ${transactions[i].descriptionDetail}
+      `;
     }
   }
 
-  console.log(
-    "Toplam Gelir: " + totalIncome + " TL\n" +
-    "Toplam Gider: " + totalExpense + " TL\n" +
-    "Bakiye: " + (totalIncome - totalExpense) + " TL"
-  );
+  output += `
+    Toplam Gelir: ${totalIncome} TL \n +
+    Toplam Gider: ${totalExpense} TL\n +
+    Bakiye: (${totalIncome - totalExpense}) TL"
+  `;
+  console.log(output);
 };
