@@ -44,6 +44,7 @@ function addIncome() {
   let amount = Number(prompt("Gelir Miktarını Giriniz:"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
+  let descriptionDetail = prompt("Yaptığınız İşi Giriniz:");
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -54,7 +55,8 @@ function addIncome() {
     category: category,
     amount: amount,
     date: date,
-    description: description
+    description: description,
+    descriptionDetail: descriptionDetail
   };
 
   // Kullacidan Alinan Data'lari 
@@ -81,6 +83,7 @@ function addExpense() {
   let amount = Number(prompt("Gider Miktarını Giriniz:"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
+  let descriptionDetail = prompt("Giderin Detayını Giriniz:");
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -91,7 +94,8 @@ function addExpense() {
     category: category,
     amount: amount,
     date: date,
-    description: description
+    description: description,
+    descriptionDetail: descriptionDetail
   };
 
   // Kullacidan Alinan Data'lari 
