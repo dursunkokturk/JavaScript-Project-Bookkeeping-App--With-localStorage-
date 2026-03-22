@@ -75,3 +75,27 @@ for (let i = 0; i < transactions.length; i++) {
     console.log(transactions[i]);
   }
 }
+
+
+function showBalance() {
+  let totalIncome = 0;
+  let totalExpense = 0;
+
+  for (let i=0;i<transactions.length;i++){
+    if (transactions[i].type === "gelir") {
+      totalIncome += transactions[i].amount;
+    } else if (transactions[i].type === "gider"){
+      totalExpense += transactions[i].amount;
+    }
+  }
+
+  alert(
+    "Toplam Gelir: " + totalIncome + " TL\n" +
+    "Toplam Gider: " + totalExpense + " TL\n" +
+    "Bakiye: " + (totalIncome - totalExpense) + " TL"
+  );
+};
+
+addIncome();
+addExpense();
+showBalance();
