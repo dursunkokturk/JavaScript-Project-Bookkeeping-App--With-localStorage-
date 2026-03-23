@@ -10,7 +10,7 @@ function checkPassword() {
   if (!savePassword) {
     let newPassword = prompt("Lütfen Bir Şifre Oluşturunuz");
 
-    if (!newPassword || newPassword.trim() === ""){
+    if (!newPassword || newPassword.trim() === "") {
       alert("Şifre Boş Bırakılamaz! Lüften Tekrar Deneyiniz");
       checkPassword();
       return;
@@ -25,12 +25,12 @@ function checkPassword() {
     if (userPassword === null) {
       alert("Uygulama Kapatıldı");
       return;
-    } 
-    
-    if (userPassword.trim() === savePassword){
+    }
+
+    if (userPassword.trim() === savePassword) {
       alert("Giriş Başarılı Hoş Geldiniz");
       menu();
-    }else {
+    } else {
       alert("Hatalı Şifre! Tekrar Deneyiniz");
       checkPassword();
     }
@@ -74,10 +74,19 @@ checkPassword();
 // ========================= Gelir Ekleme Fonksiyonu =========================
 function addIncome() {
   let category = prompt("Gelir Kategorisi Giriniz (Maaş, Freelance vs):");
-  let amount = Number(prompt("Gelir Miktarını Giriniz:"));
+  let userAmount = Number(prompt("Gelir Miktarını Giriniz:"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
   let descriptionDetail = prompt("Yaptığınız İşi Giriniz:");
+
+  // Sabit KDV
+  const kdvRate = 20;
+
+  // Hesaplanan KDV
+  let kdvCalculated = ((userAmount / 100) * kdvRate);
+
+  // KDV Dahil Tutar
+  let totalAmount = userAmount + kdvCalculated;
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -86,7 +95,10 @@ function addIncome() {
     id: Date.now(),
     type: "gelir",
     category: category,
-    amount: amount,
+    amount: userAmount,
+    kdvRate: kdvRate,
+    kdvCalculated: kdvCalculated,
+    totalAmount: totalAmount,
     date: date,
     description: description,
     descriptionDetail: descriptionDetail
@@ -105,10 +117,16 @@ function addIncome() {
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
   let category = prompt("Gider Kategorisi Giriniz (Kira, Fatura vs):");
-  let amount = Number(prompt("Gider Miktarını Giriniz:"));
+  let userAmount = Number(prompt("Gider Miktarını Giriniz:"));
+  let kdvRate = Number(prompt("KDV Oranını Giriniz:"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
   let descriptionDetail = prompt("Giderin Detayını Giriniz:");
+
+  // amount: userAmount,
+  // kdvRate: kdvRate,
+  // kdvCalculated: kdvCalculated,
+  // totalAmount: totalAmount,
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -117,7 +135,10 @@ function addExpense() {
     id: Date.now(),
     type: "gider",
     category: category,
-    amount: amount,
+    amount: userAmount,
+    kdvRate: kdvRate,
+    kdvCalculated: kdvCalculated,
+    totalAmount: totalAmount,
     date: date,
     description: description,
     descriptionDetail: descriptionDetail
@@ -147,7 +168,10 @@ function showBalance() {
       output += `
         Gelir Detayları : 
         Gelir Kategorisi : ${transactions[i].category}
-        Gelir Miktarı : ${transactions[i].amount}
+        Gelir Miktarı : ${transactions[i].userAmount}
+        KDV Oranı : ${transactions[i].kdvRate}
+        KDV Dahil Tutar : ${transactions[i].kdvCalculated}
+        KDV Dahil Tutar : ${transactions[i].totalAmount}
         Gelir Tarihi : ${transactions[i].date}
         Gelir Açıklaması : ${transactions[i].description}
         Gelir Detayları : ${transactions[i].descriptionDetail}
