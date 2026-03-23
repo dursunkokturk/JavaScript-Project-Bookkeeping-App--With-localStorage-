@@ -133,9 +133,9 @@ function showBalance() {
   }
 
   output += `
-    Toplam Gelir: ${totalIncome} TL \n +
-    Toplam Gider: ${totalExpense} TL\n +
-    Bakiye: (${totalIncome - totalExpense}) TL"
+    TOPLAM GELİR: ${totalIncome} TL \n +
+    TOPLAM GİDER: ${totalExpense} TL\n +
+    BAKİYE: (${totalIncome - totalExpense}) TL"
   `;
   console.log(output);
 };
