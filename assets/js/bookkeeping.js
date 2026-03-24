@@ -122,11 +122,12 @@ function addExpense() {
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
   let descriptionDetail = prompt("Giderin Detayını Giriniz:");
+  
+  // Hesaplanan KDV
+  let kdvCalculated = ((userAmount / 100) * kdvRate);
 
-  // amount: userAmount,
-  // kdvRate: kdvRate,
-  // kdvCalculated: kdvCalculated,
-  // totalAmount: totalAmount,
+  // KDV Dahil Tutar
+  let totalAmount = userAmount + kdvCalculated;
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -164,24 +165,27 @@ function showBalance() {
   for (let i = 0; i < transactions.length; i++) {
     let transaction = transactions[i];
     if (transaction.type === "gelir") {
-      totalIncome += transaction.amount;
+      totalIncome += transaction.totalAmount;
       output += `
         Gelir Detayları : 
         Gelir Kategorisi : ${transactions[i].category}
-        Gelir Miktarı : ${transactions[i].userAmount}
+        Gelir Miktarı : ${transactions[i].amount}
         KDV Oranı : ${transactions[i].kdvRate}
-        KDV Dahil Tutar : ${transactions[i].kdvCalculated}
+        KDV Hesabı : ${transactions[i].kdvCalculated}
         KDV Dahil Tutar : ${transactions[i].totalAmount}
         Gelir Tarihi : ${transactions[i].date}
         Gelir Açıklaması : ${transactions[i].description}
         Gelir Detayları : ${transactions[i].descriptionDetail}
       `;
     } else if (transaction.type === "gider") {
-      totalExpense += transaction.amount;
+      totalExpense += transaction.totalAmount;
       output += `
         Gider Detayları : 
         Gider Kategorisi : ${transactions[i].category}
         Gider Miktarı : ${transactions[i].amount}
+        KDV Oranı : ${transactions[i].kdvRate}
+        KDV Hesabı : ${transactions[i].kdvCalculated}
+        KDV Dahil Tutar : ${transactions[i].totalAmount}
         Gider Tarihi : ${transactions[i].date}
         Gider Açıklaması : ${transactions[i].description}
         Gider Detayları : ${transactions[i].descriptionDetail}
@@ -190,9 +194,9 @@ function showBalance() {
   }
 
   output += `
-    TOPLAM GELİR: ${totalIncome} TL \n +
-    TOPLAM GİDER: ${totalExpense} TL\n +
-    BAKİYE: (${totalIncome - totalExpense}) TL"
+    TOPLAM GELİR: ${totalIncome} TL
+    TOPLAM GİDER: ${totalExpense} TL
+    BAKİYE: (${totalIncome - totalExpense}) TL
   `;
   console.log(output);
 };
