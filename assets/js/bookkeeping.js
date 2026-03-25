@@ -221,11 +221,32 @@ function showBalance() {
     taxMessage = `${taxAmount.toFixed(2)} TL`;
   } else {
     taxAmount = 0;
-    
+
     // Zarar Var Ise → Vergi Cikmaz
     taxMessage = `VERGİ ÇIKMADI (Zarar/Sıfır)`;
   }
 
+  let totalIncomeKDV = 0;
+  let totalExpenseKDV = 0;
+
+  for (let i = 0; i < transactions.length; i++) {
+    let transaction = transactions[i];
+
+    if (transaction.type === "gelir") {
+      totalIncomeKDV += transaction.kdvCalculated;
+    } else if (transaction.type === "gider") {
+      totalExpenseKDV += transaction.kdvCalculated;
+    }
+  }
+
+  let kdvMessage = "";
+  let payableKDV = totalIncomeKDV - totalExpenseKDV;
+
+  if (payableKDV > 0) {
+    kdvMessage = `${payableKDV.toFixed(2)} TL`;
+  } else {
+    kdvMessage = "DEVREDEN KDV (Ödenecek KDV Yok)";
+  }
 
   output += `
     ═════════════════════════════════════
@@ -238,6 +259,9 @@ function showBalance() {
       VERGİ MATRAHı             : ${netProfit.toFixed(2)} TL
       ÖDENECEk VERGİ (%20)      : ${taxMessage}
     ═════════════════════════════════════
+      GELİR KDV TOPLAMI       : ${totalIncomeKDV.toFixed(2)} TL
+      GİDER KDV TOPLAMI       : ${totalExpenseKDV.toFixed(2)} TL
+      ÖDENECEK KDV            : ${kdvMessage}
   `;
 
   console.log(output);
