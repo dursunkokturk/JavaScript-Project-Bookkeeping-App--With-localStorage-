@@ -74,7 +74,7 @@ checkPassword();
 // ========================= Gelir Ekleme Fonksiyonu =========================
 function addIncome() {
   let category = prompt("Gelir Kategorisi Giriniz (Maaş, Freelance vs):");
-  let userAmount = Number(prompt("Gelir Miktarını Giriniz:"));
+  let userIncome = Number(prompt("Gelir Miktarını Giriniz:"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
   let descriptionDetail = prompt("Yaptığınız İşi Giriniz:");
@@ -83,10 +83,10 @@ function addIncome() {
   const kdvRate = 20;
 
   // Hesaplanan KDV
-  let kdvCalculated = ((userAmount / 100) * kdvRate);
+  let kdvCalculated = ((userIncome / 100) * kdvRate);
 
   // KDV Dahil Tutar
-  let totalAmount = userAmount + kdvCalculated;
+  let totalAmount = userIncome + kdvCalculated;
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -95,7 +95,7 @@ function addIncome() {
     id: Date.now(),
     type: "gelir",
     category: category,
-    amount: userAmount,
+    amount: userIncome,
     kdvRate: kdvRate,
     kdvCalculated: kdvCalculated,
     totalAmount: totalAmount,
@@ -117,17 +117,17 @@ function addIncome() {
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
   let category = prompt("Gider Kategorisi Giriniz (Kira, Fatura vs):");
-  let userAmount = Number(prompt("Gider Miktarını Giriniz:"));
-  let kdvRate = Number(prompt("KDV Oranını Giriniz:"));
+  let userExpence = Number(prompt("Gider Miktarını Giriniz: (KDV Hariç)"));
+  let kdvRate = Number(prompt("KDV Oranını Giriniz: (Örneğin: 10, 20, 30)"));
   let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
   let description = prompt("Açıklama Giriniz:");
   let descriptionDetail = prompt("Giderin Detayını Giriniz:");
-  
+
   // Hesaplanan KDV
-  let kdvCalculated = ((userAmount / 100) * kdvRate);
+  let kdvCalculated = ((userExpence / 100) * kdvRate);
 
   // KDV Dahil Tutar
-  let totalAmount = userAmount + kdvCalculated;
+  let totalAmount = userExpence + kdvCalculated;
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -136,7 +136,7 @@ function addExpense() {
     id: Date.now(),
     type: "gider",
     category: category,
-    amount: userAmount,
+    amount: userExpence,
     kdvRate: kdvRate,
     kdvCalculated: kdvCalculated,
     totalAmount: totalAmount,
@@ -157,46 +157,88 @@ function addExpense() {
 
 // ========================= Bilanco Hesaplama Fonksiyonu =========================
 function showBalance() {
-  let totalIncome = 0;
-  let totalExpense = 0;
+
+  if (transactions.length === 0) {
+    alert("Henüz Hiç Kayıt Bulunmamaktadır.");
+    return;
+  }
+
+  let totalIncomeWithKDV = 0;
+  let totalExpenseWithKDV = 0;
+  let totalIncomeNotKDV = 0;
+  let totalExpenseNotKDV = 0;
 
   let output = "===== GELİR & GİDER LİSTESİ =====\n\n";
 
   for (let i = 0; i < transactions.length; i++) {
+
     let transaction = transactions[i];
+
     if (transaction.type === "gelir") {
-      totalIncome += transaction.totalAmount;
+
+      totalIncomeWithKDV += transaction.totalAmount;
+      totalIncomeNotKDV += transaction.amount;
+
       output += `
         Gelir Detayları : 
-        Gelir Kategorisi : ${transactions[i].category}
-        Gelir Miktarı : ${transactions[i].amount}
-        KDV Oranı : ${transactions[i].kdvRate}
-        KDV Hesabı : ${transactions[i].kdvCalculated}
-        KDV Dahil Tutar : ${transactions[i].totalAmount}
-        Gelir Tarihi : ${transactions[i].date}
-        Gelir Açıklaması : ${transactions[i].description}
-        Gelir Detayları : ${transactions[i].descriptionDetail}
+        Gelir Kategorisi : ${transaction.category}
+        Gelir Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
+        KDV Oranı : ${transaction.kdvRate}
+        KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
+        Gelir Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
+        Gelir Tarihi : ${transaction.date}
+        Gelir Açıklaması : ${transaction.description}
+        Gelir Detayları : ${transaction.descriptionDetail}
       `;
     } else if (transaction.type === "gider") {
-      totalExpense += transaction.totalAmount;
+      totalExpenseWithKDV += transaction.totalAmount;
+      totalExpenseNotKDV += transaction.amount;
       output += `
         Gider Detayları : 
-        Gider Kategorisi : ${transactions[i].category}
-        Gider Miktarı : ${transactions[i].amount}
-        KDV Oranı : ${transactions[i].kdvRate}
-        KDV Hesabı : ${transactions[i].kdvCalculated}
-        KDV Dahil Tutar : ${transactions[i].totalAmount}
-        Gider Tarihi : ${transactions[i].date}
-        Gider Açıklaması : ${transactions[i].description}
-        Gider Detayları : ${transactions[i].descriptionDetail}
+        Gider Kategorisi : ${transaction.category}
+        Gider Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
+        KDV Oranı : ${transaction.kdvRate}
+        Gider Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
+        KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
+        Gider Tarihi : ${transaction.date}
+        Gider Açıklaması : ${transaction.description}
+        Gider Detayları : ${transaction.descriptionDetail}
       `;
     }
   }
 
+  // =================== Vergi Hesaplama (KDV'siz net tutar üzerinden) =================
+  // Vergi Matrahini Hesapliyoruz
+  let netProfit = totalIncomeNotKDV - totalExpenseNotKDV;
+
+  let taxAmount = 0;
+  let taxMessage = "";
+
+  if (netProfit > 0) {
+    // Odenecek Vergiyi Hesapliyoruz
+    // Kâr Var Ise → Vergi Hesapla
+    taxAmount = netProfit * 0.2;
+    taxMessage = `${taxAmount.toFixed(2)} TL`;
+  } else {
+    taxAmount = 0;
+    
+    // Zarar Var Ise → Vergi Cikmaz
+    taxMessage = `VERGİ ÇIKMADI (Zarar/Sıfır)`;
+  }
+
+
   output += `
-    TOPLAM GELİR: ${totalIncome} TL
-    TOPLAM GİDER: ${totalExpense} TL
-    BAKİYE: (${totalIncome - totalExpense}) TL
+    ═════════════════════════════════════
+      TOPLAM GELİR (KDV Dahil)  : ${totalIncomeWithKDV.toFixed(2)} TL
+      TOPLAM GİDER (KDV Dahil)  : ${totalExpenseWithKDV.toFixed(2)} TL
+      BAKİYE (KDV Dahil)        : ${(totalIncomeWithKDV - totalExpenseWithKDV).toFixed(2)} TL
+    ─────────────────────────────────────
+      NET GELİR (KDV Hariç)     : ${totalIncomeNotKDV.toFixed(2)} TL
+      NET GİDER (KDV Hariç)     : ${totalExpenseNotKDV.toFixed(2)} TL
+      VERGİ MATRAHı             : ${netProfit.toFixed(2)} TL
+      ÖDENECEk VERGİ (%20)      : ${taxMessage}
+    ═════════════════════════════════════
   `;
+
   console.log(output);
 };
