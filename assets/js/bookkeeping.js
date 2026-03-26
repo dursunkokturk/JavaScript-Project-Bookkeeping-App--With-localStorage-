@@ -2,6 +2,17 @@
 // Alinan Bilgileri localStorage Uzerinden Kullaniyoruz
 transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
+// ========================= Ekran Gecisi =========================
+// Tum Ekranlari Ilk Olarak Gizliyoruz, Sadece Istenen Ekrani Gosteriyoruz
+function showScreen(screenId) {
+  let screens = document.querySelectorAll(".screen");
+  screens.forEach(function(screen) {
+    screen.classList.remove("active");
+  });
+  document.getElementById(screenId).classList.add("active");
+}
+
+// ========================= Baslangic Ekrani =========================
 function init() {
   let savePassword = localStorage.getItem("password");
 
@@ -10,12 +21,14 @@ function init() {
   }
 };
 
+// ========================= Enter Tusu Ile Giris =========================
 document.getElementById("passwordInput").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     checkPassword();
   }
 });
 
+// ========================= Password Kontrol =========================
 function checkPassword() {
 
   // localStorage Icindeki Password'u Aliyoruz
@@ -89,11 +102,17 @@ init();
 
 // ========================= Gelir Ekleme Fonksiyonu =========================
 function addIncome() {
-  let category = prompt("Gelir Kategorisi Giriniz (Maaş, Freelance vs):");
-  let userIncome = Number(prompt("Gelir Miktarını Giriniz:"));
-  let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
-  let description = prompt("Açıklama Giriniz:");
-  let descriptionDetail = prompt("Yaptığınız İşi Giriniz:");
+  let category = document.getElementById("incomeCategory").value.trim();
+  let userIncome = document.getElementById("incomeAmount").value;
+  let date = document.getElementById("incomeDate").value;
+  let description = document.getElementById("incomeDescription").value.trim();
+  let descriptionDetail = document.getElementById("incomeDescriptionDetail").value.trim();
+
+  // Kullanicidan Alinmasi Gereken Alanlari Kontrol Ediyoruz
+  if(!category || !userIncome || !date){
+    alert("Lütfen Zorunlu Alanları Doldurunuz");
+    return;
+  }
 
   // Sabit KDV
   const kdvRate = 20;
@@ -107,22 +126,17 @@ function addIncome() {
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
   // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
-  let newIncome = {
+  transactions.push = {
     id: Date.now(),
     type: "gelir",
-    category: category,
-    amount: userIncome,
-    kdvRate: kdvRate,
-    kdvCalculated: kdvCalculated,
-    totalAmount: totalAmount,
-    date: date,
-    description: description,
-    descriptionDetail: descriptionDetail
+    category,amount: userIncome,
+    kdvRate,
+    kdvCalculated,
+    totalAmount,
+    date,
+    description,
+    descriptionDetail
   };
-
-  // Kullacidan Alinan Data'lari 
-  // Atandigi Degisken Uzerinden Array'e Gonderiyoruz
-  transactions.push(newIncome);
 
   // Array Icindeki Data'lari String Tipine Cevirip JSON Dosyasi Yapiyoruz
   localStorage.setItem("transactions", JSON.stringify(transactions));

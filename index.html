@@ -10,15 +10,52 @@
 
 <body>
 
+  <!--------------- Giris Ekrani --------------->
   <div id="loginScreen">
     <h2>Şifre Girişi</h2>
     <input type="password" id="passwordInput" placeholder="Şifrenizi giriniz">
     <button onclick="checkPassword()">Giriş Yap</button>
   </div>
 
+  <!--------------- Ana Menu Ekrani --------------->
   <div id="app" style="display:none;">
     <h2>Ön Muhasebe Uygulaması</h2>
-    <button onclick="menu()">Menüyü Aç</button>
+    <!-- <button onclick="menu()">Menüyü Aç</button> -->
+    <button onclick="showScreen('incomeScreen')">Gelir Ekle</button>
+    <button onclick="showScreen('expenseScreen')">Gider Ekle</button>
+    <button onclick="showBalance()">Bilanço Göster</button>
+  </div>
+
+  <!-- Gelir Ekleme Ekrani -->
+  <div id="incomeScreen" class="screen">
+    <h2>➕ Gelir Ekle</h2>
+    <input type="text" id="incomeCategory" placeholder="Kategori (Maaş, Freelance vb.)">
+    <input type="number" id="incomeAmount" placeholder="Tutar (KDV Hariç)">
+    <input type="date" id="incomeDate">
+    <input type="text" id="incomeDescription" placeholder="Açıklama">
+    <input type="text" id="incomeDescriptionDetail" placeholder="Yaptığınız İş">
+    <button onclick="addIncome()">Kaydet</button>
+    <button onclick="showScreen('menuScreen')">⬅ Geri</button>
+  </div>
+
+  <!-- Gider Ekleme Ekrani -->
+  <div id="expenseScreen" class="screen">
+    <h2>➖ Gider Ekle</h2>
+    <input type="text" id="expenseCategory" placeholder="Kategori (Kira, Fatura vb.)">
+    <input type="number" id="expenseAmount" placeholder="Tutar (KDV Hariç)">
+    <input type="number" id="expenseKdvRate" placeholder="KDV Oranı (örn: 10, 20)">
+    <input type="date" id="expenseDate">
+    <input type="text" id="expenseDescription" placeholder="Açıklama">
+    <input type="text" id="expenseDetail" placeholder="Gider Detayı">
+    <button onclick="addExpense()">Kaydet</button>
+    <button onclick="showScreen('menuScreen')">⬅ Geri</button>
+  </div>
+
+  <!-- Bilanco Ekrani -->
+  <div id="balanceScreen" class="screen">
+    <h2>Bilanço</h2>
+    <div id="output"></div>
+    <button onclick="showScreen('menuScreen')">⬅ Geri</button>
   </div>
 
 </body>
