@@ -154,12 +154,17 @@ function addIncome() {
 
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
-  let category = prompt("Gider Kategorisi Giriniz (Kira, Fatura vs):");
-  let userExpence = Number(prompt("Gider Miktarını Giriniz: (KDV Hariç)"));
-  let kdvRate = Number(prompt("KDV Oranını Giriniz: (Örneğin: 10, 20, 30)"));
-  let date = prompt("Tarih Giriniz (YYYY-MM-DD):");
-  let description = prompt("Açıklama Giriniz:");
-  let descriptionDetail = prompt("Giderin Detayını Giriniz:");
+  let category = document.getElementById("expenseCategory").value.trim();
+  let userExpence = document.getElementById("expenseAmount").value;
+  let kdvRate = document.getElementById("expenseKdvRate").value;
+  let date = document.getElementById("expenseDate").value;
+  let description = document.getElementById("expenseDescription").value.trim();
+  let descriptionDetail = document.getElementById("expenseDescriptionDetail").value.trim();
+
+  if (!category || !userExpence || !date) {
+    alert("Lütfen Zorunlu Alanları Doldurunuz (Kategori, Tutar, Tarih).");
+    return;
+  }
 
   // Hesaplanan KDV
   let kdvCalculated = ((userExpence / 100) * kdvRate);
@@ -170,25 +175,29 @@ function addExpense() {
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
   // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
-  let newExpense = {
+  transactions.push = {
     id: Date.now(),
     type: "gider",
-    category: category,
-    amount: userExpence,
-    kdvRate: kdvRate,
-    kdvCalculated: kdvCalculated,
-    totalAmount: totalAmount,
-    date: date,
-    description: description,
-    descriptionDetail: descriptionDetail
+    category, amount: userExpence,
+    kdvRate,
+    kdvCalculated,
+    totalAmount,
+    date,
+    description,
+    descriptionDetail
   };
-
-  // Kullacidan Alinan Data'lari 
-  // Atandigi Degisken Uzerinden Array'e Gonderiyoruz
-  transactions.push(newExpense);
 
   // Array Icindeki Data'lari String Tipine Cevirip JSON Dosyasi Yapiyoruz
   localStorage.setItem("transactions", JSON.stringify(transactions));
+
+  // Formu Temizle ve Menuye Don
+  document.getElementById("expenseCategory").value = "";
+  document.getElementById("expenseAmount").value = "";
+  document.getElementById("expenseKdvRate").value = "";
+  document.getElementById("expenseDate").value = "";
+  document.getElementById("expenseDescription").value = "";
+  document.getElementById("expenseDetail").value = "";
+  showScreen("menuScreen");
 
   alert("Gider Başarıyla Eklendi!");
 }
