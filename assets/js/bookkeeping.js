@@ -103,7 +103,7 @@ init();
 // ========================= Gelir Ekleme Fonksiyonu =========================
 function addIncome() {
   let category = document.getElementById("incomeCategory").value.trim();
-  let userIncome = document.getElementById("incomeAmount").value;
+  let userIncome = Number(document.getElementById("incomeAmount").value);
   let date = document.getElementById("incomeDate").value;
   let description = document.getElementById("incomeDescription").value.trim();
   let descriptionDetail = document.getElementById("incomeDescriptionDetail").value.trim();
@@ -126,7 +126,7 @@ function addIncome() {
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
   // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
-  transactions.push = {
+  transactions.push({
     id: Date.now(),
     type: "gelir",
     category, amount: userIncome,
@@ -136,7 +136,7 @@ function addIncome() {
     date,
     description,
     descriptionDetail
-  };
+  });
 
   // Array Icindeki Data'lari String Tipine Cevirip JSON Dosyasi Yapiyoruz
   localStorage.setItem("transactions", JSON.stringify(transactions));
@@ -148,14 +148,14 @@ function addIncome() {
   document.getElementById("incomeAmount").value = "";
   document.getElementById("incomeDate").value = "";
   document.getElementById("incomeDescription").value = "";
-  document.getElementById("incomeDetail").value = "";
+  document.getElementById("incomeDescriptionDetail").value = "";
   showScreen("menuScreen");
 }
 
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
   let category = document.getElementById("expenseCategory").value.trim();
-  let userExpence = document.getElementById("expenseAmount").value;
+  let userExpence = Number(document.getElementById("expenseAmount").value);
   let kdvRate = document.getElementById("expenseKdvRate").value;
   let date = document.getElementById("expenseDate").value;
   let description = document.getElementById("expenseDescription").value.trim();
@@ -175,7 +175,7 @@ function addExpense() {
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
   // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
-  transactions.push = {
+  transactions.push({
     id: Date.now(),
     type: "gider",
     category, amount: userExpence,
@@ -185,7 +185,7 @@ function addExpense() {
     date,
     description,
     descriptionDetail
-  };
+  });
 
   // Array Icindeki Data'lari String Tipine Cevirip JSON Dosyasi Yapiyoruz
   localStorage.setItem("transactions", JSON.stringify(transactions));
@@ -196,7 +196,7 @@ function addExpense() {
   document.getElementById("expenseKdvRate").value = "";
   document.getElementById("expenseDate").value = "";
   document.getElementById("expenseDescription").value = "";
-  document.getElementById("expenseDetail").value = "";
+  document.getElementById("expenseDescriptionDetail").value = "";
   showScreen("menuScreen");
 
   alert("Gider Başarıyla Eklendi!");
@@ -311,5 +311,6 @@ function showBalance() {
       ÖDENECEK KDV            : ${kdvMessage}
   `;
 
-  console.log(output);
+  document.getElementById("output").textContent = output;
+  showScreen("balanceScreen");
 };
