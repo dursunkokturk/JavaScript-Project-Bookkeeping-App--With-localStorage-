@@ -5,15 +5,21 @@ transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 // ========================= Ekran Gecisi =========================
 // Tum Ekranlari Ilk Olarak Gizliyoruz, Sadece Istenen Ekrani Gosteriyoruz
 function showScreen(screenId) {
+
   let screens = document.querySelectorAll(".screen");
+  
   screens.forEach(function (screen) {
     screen.classList.remove("active");
   });
+  
   document.getElementById(screenId).classList.add("active");
 }
 
 // ========================= Baslangic Ekrani =========================
 function init() {
+
+  showScreen("loginScreen");
+  
   let savePassword = localStorage.getItem("password");
 
   if (!savePassword) {
@@ -44,7 +50,7 @@ function checkPassword() {
 
   if (!savePassword) {
     localStorage.setItem("password", passwordInput);
-    alert("Şifre Boş Bırakılamaz! Lüften Tekrar Deneyiniz");
+    alert("Şifre Oluşturuldu");
     showApp();
   } else {
     // let userPassword = prompt("Lütfen Şifrenizi Giriniz");
@@ -62,8 +68,7 @@ function checkPassword() {
 
 // Giris Basarili Oldugunda Kullaniciya Gosterilecek Ekran
 function showApp() {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("app").style.display = "block";
+  showScreen("menuScreen");
 }
 
 function menu() {
@@ -156,7 +161,7 @@ function addIncome() {
 function addExpense() {
   let category = document.getElementById("expenseCategory").value.trim();
   let userExpence = Number(document.getElementById("expenseAmount").value);
-  let kdvRate = document.getElementById("expenseKdvRate").value;
+  let kdvRate = Number(document.getElementById("expenseKdvRate").value);
   let date = document.getElementById("expenseDate").value;
   let description = document.getElementById("expenseDescription").value.trim();
   let descriptionDetail = document.getElementById("expenseDescriptionDetail").value.trim();

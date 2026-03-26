@@ -5,20 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ön Muhasebe Uygulaması</title>
+  <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/bookkeeping.js" defer></script>
 </head>
 
 <body>
 
   <!--------------- Giris Ekrani --------------->
-  <div id="loginScreen">
+  <div id="loginScreen" class="screen">
     <h2>Şifre Girişi</h2>
     <input type="password" id="passwordInput" placeholder="Şifrenizi giriniz">
     <button onclick="checkPassword()">Giriş Yap</button>
   </div>
 
   <!--------------- Ana Menu Ekrani --------------->
-  <div id="app" style="display:none;" class="screen">
+  <div id="menuScreen" class="screen">
     <h2>Ön Muhasebe Uygulaması</h2>
     <!-- <button onclick="menu()">Menüyü Aç</button> -->
     <button onclick="showScreen('incomeScreen')">Gelir Ekle</button>
