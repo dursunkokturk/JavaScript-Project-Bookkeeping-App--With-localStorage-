@@ -6,7 +6,7 @@ transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 // Tum Ekranlari Ilk Olarak Gizliyoruz, Sadece Istenen Ekrani Gosteriyoruz
 function showScreen(screenId) {
   let screens = document.querySelectorAll(".screen");
-  screens.forEach(function(screen) {
+  screens.forEach(function (screen) {
     screen.classList.remove("active");
   });
   document.getElementById(screenId).classList.add("active");
@@ -109,7 +109,7 @@ function addIncome() {
   let descriptionDetail = document.getElementById("incomeDescriptionDetail").value.trim();
 
   // Kullanicidan Alinmasi Gereken Alanlari Kontrol Ediyoruz
-  if(!category || !userIncome || !date){
+  if (!category || !userIncome || !date) {
     alert("Lütfen Zorunlu Alanları Doldurunuz");
     return;
   }
@@ -129,7 +129,7 @@ function addIncome() {
   transactions.push = {
     id: Date.now(),
     type: "gelir",
-    category,amount: userIncome,
+    category, amount: userIncome,
     kdvRate,
     kdvCalculated,
     totalAmount,
@@ -142,6 +142,14 @@ function addIncome() {
   localStorage.setItem("transactions", JSON.stringify(transactions));
 
   alert("Gelir başarıyla eklendi!");
+
+  // Formu Temizle ve Menuye Don
+  document.getElementById("incomeCategory").value = "";
+  document.getElementById("incomeAmount").value = "";
+  document.getElementById("incomeDate").value = "";
+  document.getElementById("incomeDescription").value = "";
+  document.getElementById("incomeDetail").value = "";
+  showScreen("menuScreen");
 }
 
 // ========================= Gider Ekleme Fonksiyonu =========================
