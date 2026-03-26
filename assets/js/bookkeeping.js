@@ -2,39 +2,55 @@
 // Alinan Bilgileri localStorage Uzerinden Kullaniyoruz
 transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
+function init() {
+  let savePassword = localStorage.getItem("password");
+
+  if (!savePassword) {
+    alert("Hoş Geldiniz Uygulamayı Kullanmak İçin Lütfen Şifre Oluşturun");
+  }
+};
+
+document.getElementById("passwordInput").addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    checkPassword();
+  }
+});
+
 function checkPassword() {
 
   // localStorage Icindeki Password'u Aliyoruz
   let savePassword = localStorage.getItem("password");
 
-  if (!savePassword) {
-    let newPassword = prompt("Lütfen Bir Şifre Oluşturunuz");
+  // DOM Uzerinden HTML Dosyasinda Girilen Sifreyi Aliyoruz
+  let passwordInput = document.getElementById("passwordInput").value;
 
-    if (!newPassword || newPassword.trim() === "") {
-      alert("Şifre Boş Bırakılamaz! Lüften Tekrar Deneyiniz");
-      checkPassword();
-      return;
-    }
-    localStorage.setItem("password", newPassword.trim());
-    alert("Şifre Oluşturuldu. Artık Sistemi Giriş Yapabilirsiniz");
-    menu();
+  if (!passwordInput) {
+    alert("Şifre Boş Bırakılamaz! Lüften Tekrar Deneyiniz");
+    return;
+  }
+
+  if (!savePassword) {
+    localStorage.setItem("password", passwordInput);
+    alert("Şifre Boş Bırakılamaz! Lüften Tekrar Deneyiniz");
+    showApp();
   } else {
-    let userPassword = prompt("Lütfen Şifrenizi Giriniz");
+    // let userPassword = prompt("Lütfen Şifrenizi Giriniz");
 
     // Kullanici Sifre Girme Islemini Iptal Ediyor Ise
-    if (userPassword === null) {
-      alert("Uygulama Kapatıldı");
-      return;
-    }
-
-    if (userPassword.trim() === savePassword) {
-      alert("Giriş Başarılı Hoş Geldiniz");
-      menu();
+    if (passwordInput === savePassword) {
+      alert("Giriş Başarılı! Hoş Geldiniz");
+      showApp();
     } else {
       alert("Hatalı Şifre! Tekrar Deneyiniz");
-      checkPassword();
+      document.getElementById("passwordInput").value = "";
     }
   }
+}
+
+// Giris Basarili Oldugunda Kullaniciya Gosterilecek Ekran
+function showApp() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
 }
 
 function menu() {
@@ -69,7 +85,7 @@ function menu() {
   }
 }
 
-checkPassword();
+init();
 
 // ========================= Gelir Ekleme Fonksiyonu =========================
 function addIncome() {
