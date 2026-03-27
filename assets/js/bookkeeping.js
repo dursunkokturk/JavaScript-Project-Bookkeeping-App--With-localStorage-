@@ -7,11 +7,11 @@ transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 function showScreen(screenId) {
 
   let screens = document.querySelectorAll(".screen");
-  
+
   screens.forEach(function (screen) {
     screen.classList.remove("active");
   });
-  
+
   document.getElementById(screenId).classList.add("active");
 }
 
@@ -19,7 +19,7 @@ function showScreen(screenId) {
 function init() {
 
   showScreen("loginScreen");
-  
+
   let savePassword = localStorage.getItem("password");
 
   if (!savePassword) {
@@ -220,7 +220,58 @@ function showBalance() {
   let totalIncomeNotKDV = 0;
   let totalExpenseNotKDV = 0;
 
-  let output = "===== GELİR & GİDER LİSTESİ =====\n\n";
+  let incomeTable = `
+    <div class="table-section">
+      <div class="table-label income-label">Gelirler</div>
+      <div class="table-scroll">
+        <table class="balance-table">
+          <thead>
+            <tr>
+              <th>Kategori</th>
+              <th>Tutar</th>
+              <th>KDV</th>
+              <th>Toplam</th>
+              <th>Tarih</th>
+            </tr>
+          </thead>
+          <tbody>
+  `;
+
+  let expenseTable = `
+    <div class="table-section">
+      <div class="table-label expense-label">Giderler</div>
+      <div class="table-scroll">
+        <table class="balance-table">
+          <thead>
+            <tr>
+              <th>Kategori</th>
+              <th>Tutar</th>
+              <th>KDV Oranı</th>
+              <th>KDV</th>
+              <th>Toplam</th>
+              <th>Tarih</th>
+            </tr>
+          </thead>
+          <tbody>
+  `;
+  // let output = `
+  //   <h3>GELİR & GİDER LİSTESİ</h3>
+  //   <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse;">
+  //     <thead>
+  //       <tr>
+  //         <th>Tür</th>
+  //         <th>Kategori</th>
+  //         <th>Tutar (KDV Hariç)</th>
+  //         <th>KDV Oranı</th>
+  //         <th>KDV Tutarı</th>
+  //         <th>Tutar (KDV Dahil)</th>
+  //         <th>Tarih</th>
+  //         <th>Açıklama</th>
+  //         <th>Detay</th>
+  //       </tr>
+  //     </thead>
+  //     <tbody>
+  //     `;
 
   for (let i = 0; i < transactions.length; i++) {
 
@@ -231,33 +282,69 @@ function showBalance() {
       totalIncomeWithKDV += transaction.totalAmount;
       totalIncomeNotKDV += transaction.amount;
 
-      output += `
-        Gelir Detayları : 
-        Gelir Kategorisi : ${transaction.category}
-        Gelir Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
-        KDV Oranı : ${transaction.kdvRate}
-        KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
-        Gelir Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
-        Gelir Tarihi : ${transaction.date}
-        Gelir Açıklaması : ${transaction.description}
-        Gelir Detayları : ${transaction.descriptionDetail}
+      incomeTable += `
+        <tr>
+          <td>Gelir</td>
+          <td>${transaction.category}</td>
+          <td>${transaction.amount.toFixed(2)}</td>
+          <td>${transaction.kdvCalculated.toFixed(2)}</td>
+          <td>${transaction.totalAmount.toFixed(2)}</td>
+          <td>${transaction.date}</td>
+          <td>${transaction.description}</td>
+          <td>${transaction.descriptionDetail}</td>
+        </td>
       `;
+      // Gelir Detayları : 
+      //   Gelir Kategorisi : ${transaction.category}
+      //   Gelir Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
+      //   KDV Oranı : ${transaction.kdvRate}
+      //   KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
+      //   Gelir Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
+      //   Gelir Tarihi : ${transaction.date}
+      //   Gelir Açıklaması : ${transaction.description}
+      //   Gelir Detayları : ${transaction.descriptionDetail}
     } else if (transaction.type === "gider") {
       totalExpenseWithKDV += transaction.totalAmount;
       totalExpenseNotKDV += transaction.amount;
-      output += `
-        Gider Detayları : 
-        Gider Kategorisi : ${transaction.category}
-        Gider Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
-        KDV Oranı : ${transaction.kdvRate}
-        Gider Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
-        KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
-        Gider Tarihi : ${transaction.date}
-        Gider Açıklaması : ${transaction.description}
-        Gider Detayları : ${transaction.descriptionDetail}
+      expenseTable += `
+        <tr>
+          <td>Gider</td>
+          <td>${transaction.category}</td>
+          <td>${transaction.amount.toFixed(2)}</td>
+          <td>${transaction.kdvRate}</td>
+          <td>${transaction.totalAmount.toFixed(2)}</td>
+          <td>${transaction.date}</td>
+          <td>${transaction.description}</td>
+          <td>${transaction.descriptionDetail}</td>
+        </td>
       `;
+      // output += `
+      //   Gider Detayları : 
+      //   Gider Kategorisi : ${transaction.category}
+      //   Gider Miktarı (KDV Hariç) : ${transaction.amount.toFixed(2)}
+      //   KDV Oranı : ${transaction.kdvRate}
+      //   Gider Miktarı (KDV Dahil) : ${transaction.totalAmount.toFixed(2)}
+      //   KDV Tutarı : ${transaction.kdvCalculated.toFixed(2)}
+      //   Gider Tarihi : ${transaction.date}
+      //   Gider Açıklaması : ${transaction.description}
+      //   Gider Detayları : ${transaction.descriptionDetail}
+      // `;
     }
   }
+
+  incomeTable += `
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+expenseTable += `
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
 
   // =================== Vergi Hesaplama (KDV'siz net tutar üzerinden) =================
   // Vergi Matrahini Hesapliyoruz
@@ -300,22 +387,23 @@ function showBalance() {
     kdvMessage = "DEVREDEN KDV (Ödenecek KDV Yok)";
   }
 
-  output += `
-    ═════════════════════════════════════
-      TOPLAM GELİR (KDV Dahil)  : ${totalIncomeWithKDV.toFixed(2)} TL
-      TOPLAM GİDER (KDV Dahil)  : ${totalExpenseWithKDV.toFixed(2)} TL
-      BAKİYE (KDV Dahil)        : ${(totalIncomeWithKDV - totalExpenseWithKDV).toFixed(2)} TL
-    ─────────────────────────────────────
-      NET GELİR (KDV Hariç)     : ${totalIncomeNotKDV.toFixed(2)} TL
-      NET GİDER (KDV Hariç)     : ${totalExpenseNotKDV.toFixed(2)} TL
-      VERGİ MATRAHı             : ${netProfit.toFixed(2)} TL
-      ÖDENECEk VERGİ (%20)      : ${taxMessage}
-    ═════════════════════════════════════
-      GELİR KDV TOPLAMI       : ${totalIncomeKDV.toFixed(2)} TL
-      GİDER KDV TOPLAMI       : ${totalExpenseKDV.toFixed(2)} TL
-      ÖDENECEK KDV            : ${kdvMessage}
-  `;
+  output = incomeTable + expenseTable;
+  // output += `
+  //   ═════════════════════════════════════
+  //     TOPLAM GELİR (KDV Dahil)  : ${totalIncomeWithKDV.toFixed(2)} TL
+  //     TOPLAM GİDER (KDV Dahil)  : ${totalExpenseWithKDV.toFixed(2)} TL
+  //     BAKİYE (KDV Dahil)        : ${(totalIncomeWithKDV - totalExpenseWithKDV).toFixed(2)} TL
+  //   ─────────────────────────────────────
+  //     NET GELİR (KDV Hariç)     : ${totalIncomeNotKDV.toFixed(2)} TL
+  //     NET GİDER (KDV Hariç)     : ${totalExpenseNotKDV.toFixed(2)} TL
+  //     VERGİ MATRAHı             : ${netProfit.toFixed(2)} TL
+  //     ÖDENECEk VERGİ (%20)      : ${taxMessage}
+  //   ═════════════════════════════════════
+  //     GELİR KDV TOPLAMI       : ${totalIncomeKDV.toFixed(2)} TL
+  //     GİDER KDV TOPLAMI       : ${totalExpenseKDV.toFixed(2)} TL
+  //     ÖDENECEK KDV            : ${kdvMessage}
+  // `;
 
-  document.getElementById("output").textContent = output;
+  document.getElementById("output").innerHTML = output;
   showScreen("balanceScreen");
 };
