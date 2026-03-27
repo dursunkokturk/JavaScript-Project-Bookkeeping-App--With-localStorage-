@@ -160,22 +160,22 @@ function addIncome() {
 // ========================= Gider Ekleme Fonksiyonu =========================
 function addExpense() {
   let category = document.getElementById("expenseCategory").value.trim();
-  let userExpence = Number(document.getElementById("expenseAmount").value);
+  let userExpense = Number(document.getElementById("expenseAmount").value);
   let kdvRate = Number(document.getElementById("expenseKdvRate").value);
   let date = document.getElementById("expenseDate").value;
   let description = document.getElementById("expenseDescription").value.trim();
   let descriptionDetail = document.getElementById("expenseDescriptionDetail").value.trim();
 
-  if (!category || !userExpence || !date) {
+  if (!category || !userExpense || !date) {
     alert("Lütfen Zorunlu Alanları Doldurunuz (Kategori, Tutar, Tarih).");
     return;
   }
 
   // Hesaplanan KDV
-  let kdvCalculated = ((userExpence / 100) * kdvRate);
+  let kdvCalculated = ((userExpense / 100) * kdvRate);
 
   // KDV Dahil Tutar
-  let totalAmount = userExpence + kdvCalculated;
+  let totalAmount = userExpense + kdvCalculated;
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
@@ -183,7 +183,7 @@ function addExpense() {
   transactions.push({
     id: Date.now(),
     type: "gider",
-    category, amount: userExpence,
+    category, amount: userExpense,
     kdvRate,
     kdvCalculated,
     totalAmount,
