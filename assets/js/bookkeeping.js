@@ -227,15 +227,21 @@ function showBalance() {
         <table class="balance-table">
           <thead>
             <tr>
+              <th>Tür</th>
               <th>Kategori</th>
-              <th>Tutar</th>
-              <th>KDV</th>
-              <th>Toplam</th>
+              <th>Gelir Miktarı (KDV Hariç)</th>
+              <th>KDV Oranı</th>
+              <th>KDV Tutarı</th>
+              <th>Gelir Miktarı (KDV Dahil)</th>
               <th>Tarih</th>
+              <th>Açıklama</th>
+              <th>Detaylar</th>
             </tr>
           </thead>
           <tbody>
   `;
+
+  
 
   let expenseTable = `
     <div class="table-section">
@@ -287,6 +293,7 @@ function showBalance() {
           <td>Gelir</td>
           <td>${transaction.category}</td>
           <td>${transaction.amount.toFixed(2)}</td>
+          <td>${transaction.kdvRate}</td>
           <td>${transaction.kdvCalculated.toFixed(2)}</td>
           <td>${transaction.totalAmount.toFixed(2)}</td>
           <td>${transaction.date}</td>
