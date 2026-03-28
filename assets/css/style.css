@@ -271,7 +271,7 @@ button {
 ══════════════════════════════════════════════════ */
 #output {
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -318,6 +318,7 @@ button {
   min-width: 700px;
   border-collapse: collapse;
   font-size: 0.84rem;
+  table-layout: auto;
 }
 
 .balance-table thead tr {
@@ -327,7 +328,7 @@ button {
 
 .balance-table th {
   padding: 11px 14px;
-  text-align: left;
+  text-align: center;
   color: var(--text-3);
   font-weight: 500;
   font-size: 0.74rem;
@@ -359,9 +360,9 @@ button {
   text-align: right;
 }
 
-.balance-table th:nth-child(n+5) {
+/* .balance-table th:nth-child(n+5) {
   text-align: right;
-}
+} */
 
 .balance-table tfoot tr {
   background: var(--surface);
