@@ -360,10 +360,6 @@ button {
   text-align: right;
 }
 
-/* .balance-table th:nth-child(n+5) {
-  text-align: right;
-} */
-
 .balance-table tfoot tr {
   background: var(--surface);
   border-top: 1px solid var(--border);
