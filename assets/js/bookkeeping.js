@@ -250,16 +250,20 @@ function showBalance() {
         <table class="balance-table">
           <thead>
             <tr>
+              <th>Tür</th>
               <th>Kategori</th>
-              <th>Tutar</th>
+              <th>Gider Miktarı (KDV Hariç)</th>
               <th>KDV Oranı</th>
-              <th>KDV</th>
-              <th>Toplam</th>
+              <th>Gider Miktarı (KDV Dahil)</th>
+              <th>KDV Tutarı</th>
               <th>Tarih</th>
+              <th>Açıklama</th>
+              <th>Detaylar</th>
             </tr>
           </thead>
           <tbody>
   `;
+
   // let output = `
   //   <h3>GELİR & GİDER LİSTESİ</h3>
   //   <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse;">
@@ -320,6 +324,7 @@ function showBalance() {
           <td>${transaction.amount.toFixed(2)}</td>
           <td>${transaction.kdvRate}</td>
           <td>${transaction.totalAmount.toFixed(2)}</td>
+          <td>${transaction.kdvCalculated.toFixed(2)}</td>
           <td>${transaction.date}</td>
           <td>${transaction.description}</td>
           <td>${transaction.descriptionDetail}</td>
