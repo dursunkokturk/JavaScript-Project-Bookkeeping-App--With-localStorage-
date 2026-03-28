@@ -399,7 +399,33 @@ expenseTable += `
     kdvMessage = "DEVREDEN KDV (Ödenecek KDV Yok)";
   }
 
-  output = incomeTable + expenseTable;
+  let summary = `
+    <div class="summary-box">
+      <h3>📊 GENEL BİLANÇO</h3>
+
+      <hr>
+
+      <p><strong>TOPLAM GELİR (KDV Dahil):</strong> ${totalIncomeWithKDV.toFixed(2)} TL</p>
+      <p><strong>TOPLAM GİDER (KDV Dahil):</strong> ${totalExpenseWithKDV.toFixed(2)} TL</p>
+      <p><strong>BAKİYE (KDV Dahil):</strong> ${(totalIncomeWithKDV - totalExpenseWithKDV).toFixed(2)} TL</p>
+
+      <hr>
+
+      <p><strong>NET GELİR (KDV Hariç):</strong> ${totalIncomeNotKDV.toFixed(2)} TL</p>
+      <p><strong>NET GİDER (KDV Hariç):</strong> ${totalExpenseNotKDV.toFixed(2)} TL</p>
+      <p><strong>VERGİ MATRAHI:</strong> ${netProfit.toFixed(2)} TL</p>
+      <p><strong>ÖDENECEK VERGİ (%20):</strong> ${taxMessage}</p>
+
+      <hr>
+
+      <p><strong>GELİR KDV TOPLAMI:</strong> ${totalIncomeKDV.toFixed(2)} TL</p>
+      <p><strong>GİDER KDV TOPLAMI:</strong> ${totalExpenseKDV.toFixed(2)} TL</p>
+      <p><strong>ÖDENECEK KDV:</strong> ${kdvMessage}</p>
+
+    </div>
+  `;
+
+  output = incomeTable + expenseTable + summary;
   // output += `
   //   ═════════════════════════════════════
   //     TOPLAM GELİR (KDV Dahil)  : ${totalIncomeWithKDV.toFixed(2)} TL
