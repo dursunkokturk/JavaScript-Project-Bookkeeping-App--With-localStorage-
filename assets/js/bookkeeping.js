@@ -179,7 +179,7 @@ function addExpense() {
 
   // Kullanicidan Alinan Data'lara Data'nin Girildigi Tarihi Ekliyoruz
   // Eklenen Data'lar Ile Birlikte Olusturulan Objeyi 
-  // Array'e Gondermek Icin Degiskene Atama Yapiyoruz
+  // Array'e Gonderiyoruz
   transactions.push({
     id: Date.now(),
     type: "gider",
