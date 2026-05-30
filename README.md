@@ -48,8 +48,8 @@ on-muhasebe/ <br>
         └── bookkeeping.js <br>
 
 ## Kurulum
-Proje herhangi bir bağımlılık gerektirmez. Klonladıktan sonra doğrudan tarayıcıda açabilirsiniz.
-bash# Repoyu klonlayın
+Proje herhangi bir bağımlılık gerektirmez. Klonladıktan sonra doğrudan tarayıcıda açabilirsiniz. <br>
+bash# Repoyu klonlayın <br>
 git clone https://github.com/dursunkokturk/JavaScript-Project-Bookkeeping-App--With-localStorage-.git
 
 ### Proje klasörüne girin
