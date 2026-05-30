@@ -5,7 +5,8 @@ Küçük işletmeler ve serbest çalışanlar için geliştirilmiş, şifre koru
 ## Canlı Önizleme
 
 [Proje Önizleme.](https://dursunkokturk.github.io/JavaScript-Project-Bookkeeping-App--With-localStorage-)
-![Proje Görseli]()
+
+![Proje Görseli](assets/img/javascript-project-bookkeeping.png)
 
 ## Özellikler
 
