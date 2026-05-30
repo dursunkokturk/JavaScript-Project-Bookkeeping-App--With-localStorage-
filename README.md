@@ -140,8 +140,8 @@ bookkeeping/ <br>
         └── bookkeeping.js <br>
 
 ## Installation
-The project requires no dependencies. After cloning, you can open it directly in the browser.
-bash# Clone the repo
+The project requires no dependencies. After cloning, you can open it directly in the browser. <br>
+bash# Clone the repo <br>
 git clone https://github.com/dursunkokturk/JavaScript-Project-Bookkeeping-App--With-localStorage-.git
 
 ### Navigate to the project folder
