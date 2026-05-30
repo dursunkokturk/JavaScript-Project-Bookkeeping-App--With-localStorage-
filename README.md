@@ -50,13 +50,14 @@ on-muhasebe/ <br>
 ## Kurulum
 Proje herhangi bir bağımlılık gerektirmez. Klonladıktan sonra doğrudan tarayıcıda açabilirsiniz.
 bash# Repoyu klonlayın
-git clone https://github.com/kullanici-adi/on-muhasebe.git
+git clone https://github.com/dursunkokturk/JavaScript-Project-Bookkeeping-App--With-localStorage-.git
 
 ### Proje klasörüne girin
-cd on-muhasebe
+cd JavaScript-Project-Bookkeeping-App--With-localStorage-
 
 ### index.html dosyasını tarayıcıda açın
-open index.html
+Proje klasörü içinde çift tıklayarak yada <br>
+Projeyi VSCode içinde açıp index.html dosyasının üzerinde sağ tıkladıktan sonra "Open With Live Server" tıklayarak projeyi browser'da açıyoruz.
 
 #### Not: 
 localStorage kullanıldığından uygulamanın file:// protokolü yerine bir yerel sunucu üzerinden çalıştırılması önerilir. Live Server VS Code eklentisi tercih edilebilir.
@@ -96,7 +97,9 @@ localStorage kullanıldığından uygulamanın file:// protokolü yerine bir yer
 A browser-based bookkeeping application with password protection, developed for small businesses and freelancers. It keeps income and expense records with VAT calculations and automatically computes the tax base and VAT payable on the balance sheet screen.
 
 ## Live Preview
-Project Preview.
+[Project Preview.](https://dursunkokturk.github.io/JavaScript-Project-Bookkeeping-App--With-localStorage-)
+
+![Proje Görseli](assets/img/javascript-project-bookkeeping.png)
 
 ## Features
 
@@ -139,13 +142,14 @@ bookkeeping/ <br>
 ## Installation
 The project requires no dependencies. After cloning, you can open it directly in the browser.
 bash# Clone the repo
-git clone https://github.com/username/bookkeeping.git
+git clone https://github.com/dursunkokturk/JavaScript-Project-Bookkeeping-App--With-localStorage-.git
 
 ### Navigate to the project folder
-cd bookkeeping
+cd JavaScript-Project-Bookkeeping-App--With-localStorage-
 
 ### Open index.html in the browser
-open index.html
+Open it by double-clicking inside the project folder, or <br>
+open the project in VSCode, right-click on the index.html file, and select "Open With Live Server" to launch it in the browser.
 
 #### Note: 
 Since localStorage is used, it is recommended to run the application through a local server rather than the file:// protocol. The Live Server VS Code extension is a good option.
